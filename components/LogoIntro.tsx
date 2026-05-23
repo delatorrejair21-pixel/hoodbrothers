@@ -24,15 +24,17 @@ export default function LogoIntro({ onComplete }: LogoIntroProps) {
   const [phase,      setPhase]      = useState<'revealing' | 'progress' | 'exiting' | 'done'>('revealing')
   const [exitTarget, setExitTarget] = useState<ExitTarget>({ x: 0, y: 0, scale: 1 })
 
-  // Lock BOTH html + body. Do NOT release here — the parent handles release
-  // AFTER content is in the DOM and scroll is reset, so there's no window
-  // for the browser to apply scroll restoration.
+  // iOS-safe scroll lock. overflow:hidden alone doesn't stop iOS Safari —
+  // position:fixed on body anchors it to the viewport so there's nothing to scroll.
+  // Do NOT release here; Home's useEffect releases after content mounts.
   useEffect(() => {
-    document.documentElement.style.overflow = 'hidden'
+    document.body.style.position = 'fixed'
+    document.body.style.top = '0'
+    document.body.style.left = '0'
+    document.body.style.right = '0'
     document.body.style.overflow = 'hidden'
-    document.documentElement.scrollTop = 0
-    document.body.scrollTop = 0
-    // No cleanup — parent (Home) releases the lock
+    document.documentElement.style.overflow = 'hidden'
+    // No cleanup — Home releases the lock
   }, [])
 
   const doExit = useCallback(() => {

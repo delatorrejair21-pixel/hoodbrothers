@@ -189,14 +189,6 @@ function Hero() {
           </a>
         </div>
 
-        <div className="animate-fade-up-d4 mt-20 flex justify-center">
-          <a href="#trust" className="flex flex-col items-center gap-2 text-white/25 hover:text-white/50 transition-colors">
-            <span className="text-xs tracking-widest uppercase">Scroll</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="animate-bounce">
-              <path d="M12 5v14M5 12l7 7 7-7" />
-            </svg>
-          </a>
-        </div>
       </div>
     </section>
   );
@@ -734,14 +726,16 @@ export default function Home() {
 
   useEffect(() => {
     if (!introComplete) return;
-    // Clamp is gone — release html/body lock too, then hard-zero scroll.
-    // At this point the wrapper has height:auto so the page can scroll,
-    // but we've never moved from 0 because the clamp prevented it.
-    document.documentElement.style.overflow = '';
+    // Release the iOS-safe position:fixed lock set in LogoIntro.
+    // Content is in the DOM but position:fixed on body means there was
+    // nothing to scroll — we're guaranteed to be at 0.
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
     document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
     document.documentElement.style.scrollBehavior = 'smooth';
   }, [introComplete]);
 
