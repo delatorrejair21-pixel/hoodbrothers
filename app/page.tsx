@@ -732,24 +732,25 @@ function Footer() {
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
 
-  // Disable browser scroll restoration so it can't jump us down the page
+  // After page content mounts, snap to top AFTER the browser has had a chance
+  // to apply any scroll restoration (double-rAF runs after paint/layout)
   useEffect(() => {
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-  }, []);
-
-  return (
-    <>
-      <LogoIntro onComplete={() => {
-        // Ensure we're at the very top before mounting the page
+    if (!introComplete) return;
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
         window.scrollTo({ top: 0, behavior: 'instant' });
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
-        setIntroComplete(true);
-        // Re-enable smooth scrolling now that the intro is done
+        // Now safe to enable smooth scrolling for anchor links
         document.documentElement.style.scrollBehavior = 'smooth';
-      }} />
+      });
+    });
+    return () => cancelAnimationFrame(id);
+  }, [introComplete]);
+
+  return (
+    <>
+      <LogoIntro onComplete={() => setIntroComplete(true)} />
 
       {/* Page content only mounts after intro — never in the DOM during the animation */}
       {introComplete && (
