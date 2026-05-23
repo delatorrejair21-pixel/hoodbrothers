@@ -724,41 +724,18 @@ function Footer() {
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
 
-  useEffect(() => {
-    if (!introComplete) return;
-    // Release the iOS-safe position:fixed lock set in LogoIntro.
-    // Content is in the DOM but position:fixed on body means there was
-    // nothing to scroll — we're guaranteed to be at 0.
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.overflow = '';
-    document.documentElement.style.overflow = '';
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    document.documentElement.style.scrollBehavior = 'smooth';
-  }, [introComplete]);
-
   return (
     <>
-      <LogoIntro onComplete={() => setIntroComplete(true)} />
+      {!introComplete && (
+        <LogoIntro
+          onComplete={() => {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            setIntroComplete(true);
+          }}
+        />
+      )}
 
-      {/*
-        Content is ALWAYS in the DOM (so the navbar logo is findable for the
-        morph animation). During the intro the wrapper is clamped to 100vh with
-        overflow:hidden — the document's scrollable height is 0, so the browser
-        has nothing to restore or jump to, no matter what.
-        When introComplete flips, we drop the clamp and the page fades in.
-      */}
-      <div
-        style={introComplete ? undefined : {
-          height: '100vh',
-          overflow: 'hidden',
-          visibility: 'hidden',
-          pointerEvents: 'none',
-        }}
-        className={introComplete ? 'animate-page-in' : ''}
-      >
+      <div className={introComplete ? 'content-reveal' : 'opacity-0 pointer-events-none select-none'}>
         <ScrollProgressBar />
         <Navbar />
         <main>

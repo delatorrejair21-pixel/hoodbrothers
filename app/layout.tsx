@@ -35,19 +35,6 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable} ${barlow.variable}`}>
-      <head>
-        {/* Must run before React — kills browser scroll restoration entirely */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('scrollRestoration' in history) {
-                history.scrollRestoration = 'manual';
-              }
-              window.scrollTo(0, 0);
-            `,
-          }}
-        />
-      </head>
       <body className="min-h-screen bg-[#0D0D0D] text-white antialiased" suppressHydrationWarning>
         {children}
       </body>

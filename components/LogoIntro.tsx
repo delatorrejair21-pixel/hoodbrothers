@@ -1,123 +1,104 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
-import { motion } from 'framer-motion'
-import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 
-// Timeline (ms)
-const LOGO_SETTLE   = 2000   // logo finishes revealing + brief pause
-const PROGRESS_DURATION = 1400  // thin line fills up before exit
-const EXIT_DURATION = 800    // overlay fades + logo morphs out
+const PLAY_MS  = 2600  // how long the animation plays before fading
+const TOTAL_MS = 3400  // total before onComplete fires (PLAY_MS + fade)
 
-interface LogoIntroProps {
-  onComplete: () => void
-}
+export default function LogoIntro({ onComplete }: { onComplete: () => void }) {
+  const [leaving, setLeaving] = useState(false)
+  const doneRef  = useRef(false)
 
-interface ExitTarget {
-  x: number
-  y: number
-  scale: number
-}
-
-export default function LogoIntro({ onComplete }: LogoIntroProps) {
-  const logoRef = useRef<HTMLDivElement>(null)
-  const [phase,      setPhase]      = useState<'revealing' | 'progress' | 'exiting' | 'done'>('revealing')
-  const [exitTarget, setExitTarget] = useState<ExitTarget>({ x: 0, y: 0, scale: 1 })
-
-  // iOS-safe scroll lock. overflow:hidden alone doesn't stop iOS Safari —
-  // position:fixed on body anchors it to the viewport so there's nothing to scroll.
-  // Do NOT release here; Home's useEffect releases after content mounts.
   useEffect(() => {
-    document.body.style.position = 'fixed'
-    document.body.style.top = '0'
-    document.body.style.left = '0'
-    document.body.style.right = '0'
-    document.body.style.overflow = 'hidden'
-    document.documentElement.style.overflow = 'hidden'
-    // No cleanup — Home releases the lock
-  }, [])
+    document.body.classList.add('intro-playing')
 
-  const doExit = useCallback(() => {
-    setPhase('exiting')
-
-    const navLogo = document.querySelector('[data-navbar-logo]') as HTMLElement | null
-    if (navLogo && logoRef.current) {
-      const intro = logoRef.current.getBoundingClientRect()
-      const nav   = navLogo.getBoundingClientRect()
-      setExitTarget({
-        x:     (nav.left + nav.width  / 2) - (intro.left + intro.width  / 2),
-        y:     (nav.top  + nav.height / 2) - (intro.top  + intro.height / 2),
-        scale: nav.height / intro.height,
-      })
-    }
-
-    setTimeout(() => {
-      // Do NOT release overflow here — parent does it after content mounts
-      setPhase('done')
+    const t1 = setTimeout(() => setLeaving(true), PLAY_MS)
+    const t2 = setTimeout(() => {
+      if (doneRef.current) return
+      doneRef.current = true
+      document.body.classList.remove('intro-playing')
       onComplete()
-    }, EXIT_DURATION)
+    }, TOTAL_MS)
+
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+      document.body.classList.remove('intro-playing')
+    }
   }, [onComplete])
 
-  // Auto-sequence: logo settles → progress bar fills → exit
-  useEffect(() => {
-    const t1 = setTimeout(() => setPhase('progress'), LOGO_SETTLE)
-    const t2 = setTimeout(() => doExit(), LOGO_SETTLE + PROGRESS_DURATION)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
-  }, [doExit])
-
-  if (phase === 'done') return null
-
-  const isExiting = phase === 'exiting'
-
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center">
-      {/* Matte background */}
-      <motion.div
-        className="absolute inset-0 bg-[#0D0D0D]"
-        animate={isExiting ? { opacity: 0 } : { opacity: 1 }}
-        transition={{ duration: EXIT_DURATION / 1000, ease: [0.22, 1, 0.36, 1] }}
+    <div
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#0D0D0D]${
+        leaving ? ' intro-fade-out' : ''
+      }`}
+    >
+      {/* Subtle radial glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 65% 55% at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%)',
+        }}
       />
 
-      {/* Logo */}
-      <motion.div
-        ref={logoRef}
-        style={{ willChange: 'transform' }}
-        animate={isExiting
-          ? { x: exitTarget.x, y: exitTarget.y, scale: exitTarget.scale }
-          : { x: 0, y: 0, scale: 1 }
-        }
-        transition={{ duration: EXIT_DURATION / 1000, ease: [0.25, 0.1, 0.25, 1] }}
-      >
-        {/* Diagonal blade wipe */}
-        <motion.div
-          initial={{ clipPath: 'polygon(0% 0%, 0% 0%, 6% 100%, 0% 100%)' }}
-          animate={{ clipPath: 'polygon(0% 0%, 100% 0%, 106% 100%, 0% 100%)' }}
-          transition={{ duration: 1.0, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <Image
-            src="/logo.png"
-            alt="The Hood Brothers"
-            width={260}
-            height={130}
-            style={{ width: 260, height: 'auto' }}
-            className="invert brightness-200"
-            priority
-          />
-        </motion.div>
-      </motion.div>
+      {/* Sweep line */}
+      <div
+        className="absolute top-1/2 left-0 h-px w-48 intro-sweep pointer-events-none"
+        style={{
+          animationDelay: '0.2s',
+          background:
+            'linear-gradient(90deg, transparent, rgba(255,255,255,0.8), #fff, rgba(255,255,255,0.8), transparent)',
+          boxShadow: '0 0 10px rgba(255,255,255,0.4)',
+        }}
+      />
 
-      {/* Progress bar — thin white line that fills then triggers exit */}
-      <div className="absolute bottom-10 w-40 flex flex-col items-center gap-3">
-        {/* Track */}
-        <div className="w-full h-px bg-white/10 rounded-full overflow-hidden">
-          <motion.div
-            className="h-full bg-white/60 rounded-full"
-            initial={{ width: '0%' }}
-            animate={phase === 'progress' || isExiting ? { width: '100%' } : { width: '0%' }}
-            transition={{
-              duration: PROGRESS_DURATION / 1000,
-              ease: 'linear',
-            }}
+      {/* Content */}
+      <div className="relative text-center px-6 flex flex-col items-center gap-4">
+        {/* Top divider */}
+        <div
+          className="intro-line-grow h-px w-28"
+          style={{
+            animationDelay: '0.05s',
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
+          }}
+        />
+
+        {/* Eyebrow */}
+        <p
+          className="intro-slide-up text-white/40 text-[11px] tracking-[0.45em] uppercase font-semibold"
+          style={{ animationDelay: '0.2s' }}
+        >
+          Commercial Kitchen Specialists
+        </p>
+
+        {/* Brand name */}
+        <h1
+          className="intro-text-reveal text-white font-black uppercase tracking-tight"
+          style={{
+            animationDelay: '0.38s',
+            fontFamily: 'var(--font-barlow)',
+            fontSize: 'clamp(2rem, 9vw, 3.8rem)',
+            lineHeight: 1,
+          }}
+        >
+          The Hood Brothers
+        </h1>
+
+        {/* Bottom divider */}
+        <div
+          className="intro-line-grow h-px w-28"
+          style={{
+            animationDelay: '0.75s',
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
+          }}
+        />
+
+        {/* Progress bar */}
+        <div className="mt-2 w-32 h-px bg-white/10 rounded-full overflow-hidden">
+          <div
+            className="intro-progress-fill h-full bg-white/55 rounded-full"
+            style={{ animationDuration: `${PLAY_MS}ms` }}
           />
         </div>
       </div>

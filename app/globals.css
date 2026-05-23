@@ -16,16 +16,85 @@
 }
 
 html {
-  /* scroll-behavior set via JS after intro completes */
+  scroll-behavior: smooth;
 }
 
-@keyframes pageIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+/* ── Intro animation ─────────────────────────────────────────────────────── */
+
+/* iOS-safe scroll lock: position:fixed anchors body to viewport so iOS
+   momentum scrolling can't move the page during the intro */
+body.intro-playing {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
-.animate-page-in {
-  animation: pageIn 0.5s ease forwards;
+@keyframes introFadeOut {
+  0%   { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+.intro-fade-out {
+  animation: introFadeOut 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes introSweep {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateX(100vw); opacity: 0; }
+}
+.intro-sweep {
+  animation: introSweep 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes introTextReveal {
+  0%   { clip-path: inset(0 100% 0 0); opacity: 0; }
+  15%  { opacity: 1; }
+  100% { clip-path: inset(0 0% 0 0); opacity: 1; }
+}
+.intro-text-reveal {
+  animation: introTextReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+}
+
+@keyframes introSlideUp {
+  0%   { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.intro-slide-up {
+  animation: introSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes introLineGrow {
+  0%   { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+.intro-line-grow {
+  animation: introLineGrow 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform-origin: center;
+  transform: scaleX(0);
+}
+
+@keyframes introProgressFill {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+.intro-progress-fill {
+  animation: introProgressFill linear forwards;
+  width: 0%;
+}
+
+/* Page content reveals after intro */
+@keyframes contentReveal {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+.content-reveal {
+  animation: contentReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 body {
