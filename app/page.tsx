@@ -732,20 +732,18 @@ function Footer() {
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
 
-  // After page content mounts, snap to top AFTER the browser has had a chance
-  // to apply any scroll restoration (double-rAF runs after paint/layout)
+  // After page content mounts (introComplete = true):
+  // overflow is STILL locked from LogoIntro — content is in the DOM but
+  // the browser physically cannot have scrolled anywhere.
+  // We reset scroll then release the lock. Order matters: release LAST.
   useEffect(() => {
     if (!introComplete) return;
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: 0, behavior: 'instant' });
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-        // Now safe to enable smooth scrolling for anchor links
-        document.documentElement.style.scrollBehavior = 'smooth';
-      });
-    });
-    return () => cancelAnimationFrame(id);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    document.documentElement.style.scrollBehavior = 'smooth';
   }, [introComplete]);
 
   return (
