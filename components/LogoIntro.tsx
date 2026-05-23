@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 
 // Beat timing (ms)
-const HINT_DELAY = 2200   // when scroll hint appears
-const EXIT_DURATION = 850 // ms for the exit transition
+const HINT_DELAY    = 2200   // when scroll hint appears
+const EXIT_DURATION = 850    // ms for the exit transition
 
 interface LogoIntroProps {
   onComplete: () => void
@@ -19,18 +19,18 @@ interface ExitTarget {
 }
 
 export default function LogoIntro({ onComplete }: LogoIntroProps) {
-  const logoRef  = useRef<HTMLDivElement>(null)
-  const [phase,       setPhase]       = useState<'animating' | 'waiting' | 'exiting' | 'done'>('animating')
-  const [showHint,    setShowHint]    = useState(false)
-  const [exitTarget,  setExitTarget]  = useState<ExitTarget>({ x: 0, y: 0, scale: 1 })
+  const logoRef = useRef<HTMLDivElement>(null)
+  const [phase,      setPhase]      = useState<'animating' | 'waiting' | 'exiting' | 'done'>('animating')
+  const [showHint,   setShowHint]   = useState(false)
+  const [exitTarget, setExitTarget] = useState<ExitTarget>({ x: 0, y: 0, scale: 1 })
 
-  // Lock body scroll while animating
+  // Keep body scroll LOCKED for the entire intro — page never moves
   useEffect(() => {
-    document.body.style.overflow = phase === 'animating' ? 'hidden' : ''
+    document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
-  }, [phase])
+  }, [])
 
-  // After logo reveal beats finish → unlock scroll + show hint
+  // After logo reveal finishes → show hint + listen for exit intent
   useEffect(() => {
     const id = setTimeout(() => {
       setShowHint(true)
@@ -43,11 +43,7 @@ export default function LogoIntro({ onComplete }: LogoIntroProps) {
     if (phase !== 'waiting') return
     setPhase('exiting')
 
-    // Lock scroll + snap back to top so page starts at the hero
-    document.body.style.overflow = 'hidden'
-    window.scrollTo({ top: 0, behavior: 'instant' })
-
-    // Compute where the nav logo is so we can morph toward it
+    // Compute nav-logo position for morph
     const navLogo = document.querySelector('[data-navbar-logo]') as HTMLElement | null
     if (navLogo && logoRef.current) {
       const intro = logoRef.current.getBoundingClientRect()
@@ -66,11 +62,36 @@ export default function LogoIntro({ onComplete }: LogoIntroProps) {
     }, EXIT_DURATION)
   }, [phase, onComplete])
 
-  // First scroll → trigger exit
+  // Detect scroll/wheel/touch INTENT without letting the page actually scroll
   useEffect(() => {
     if (phase !== 'waiting') return
-    window.addEventListener('scroll', doExit, { once: true, passive: true })
-    return () => window.removeEventListener('scroll', doExit)
+
+    // Wheel — fires before any scroll happens, can be blocked
+    const onWheel = (e: WheelEvent) => {
+      if (e.deltaY > 0) { e.preventDefault(); doExit() }
+    }
+    // Touch swipe up
+    let touchStartY = 0
+    const onTouchStart = (e: TouchEvent) => { touchStartY = e.touches[0].clientY }
+    const onTouchMove  = (e: TouchEvent) => {
+      if (e.touches[0].clientY < touchStartY - 10) { e.preventDefault(); doExit() }
+    }
+    // Keyboard: arrow down / page down / space
+    const onKey = (e: KeyboardEvent) => {
+      if (['ArrowDown','PageDown','Space',' '].includes(e.key)) { e.preventDefault(); doExit() }
+    }
+
+    window.addEventListener('wheel',      onWheel,      { passive: false })
+    window.addEventListener('touchstart', onTouchStart, { passive: true  })
+    window.addEventListener('touchmove',  onTouchMove,  { passive: false })
+    window.addEventListener('keydown',    onKey)
+
+    return () => {
+      window.removeEventListener('wheel',      onWheel)
+      window.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('touchmove',  onTouchMove)
+      window.removeEventListener('keydown',    onKey)
+    }
   }, [phase, doExit])
 
   if (phase === 'done') return null
@@ -89,7 +110,7 @@ export default function LogoIntro({ onComplete }: LogoIntroProps) {
         transition={{ duration: EXIT_DURATION / 1000, ease: [0.22, 1, 0.36, 1] }}
       />
 
-      {/* Logo — single image, diagonal wipe reveal, morphs to navbar on exit */}
+      {/* Logo — diagonal wipe reveal, morphs to navbar on exit */}
       <motion.div
         ref={logoRef}
         style={{ willChange: 'transform' }}
@@ -99,7 +120,7 @@ export default function LogoIntro({ onComplete }: LogoIntroProps) {
         }
         transition={{ duration: EXIT_DURATION / 1000, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        {/* Diagonal blade wipe: left-edge sweeps left→right */}
+        {/* Blade wipe left → right */}
         <motion.div
           initial={{ clipPath: 'polygon(0% 0%, 0% 0%, 6% 100%, 0% 100%)' }}
           animate={{ clipPath: 'polygon(0% 0%, 100% 0%, 106% 100%, 0% 100%)' }}
@@ -117,7 +138,7 @@ export default function LogoIntro({ onComplete }: LogoIntroProps) {
         </motion.div>
       </motion.div>
 
-      {/* Scroll hint + skip button */}
+      {/* Scroll hint + skip */}
       <AnimatePresence>
         {showHint && !isExiting && (
           <motion.div
