@@ -24,10 +24,16 @@ export default function LogoIntro({ onComplete }: LogoIntroProps) {
   const [phase,      setPhase]      = useState<'revealing' | 'progress' | 'exiting' | 'done'>('revealing')
   const [exitTarget, setExitTarget] = useState<ExitTarget>({ x: 0, y: 0, scale: 1 })
 
-  // Body always locked — page never moves during intro
+  // Lock BOTH html + body so browser can't restore a scroll position
   useEffect(() => {
+    document.documentElement.style.overflow = 'hidden'
     document.body.style.overflow = 'hidden'
-    return () => { document.body.style.overflow = '' }
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
+    return () => {
+      document.documentElement.style.overflow = ''
+      document.body.style.overflow = ''
+    }
   }, [])
 
   const doExit = useCallback(() => {
@@ -45,6 +51,11 @@ export default function LogoIntro({ onComplete }: LogoIntroProps) {
     }
 
     setTimeout(() => {
+      // Force position to top before unlocking — prevents browser scroll restore
+      document.documentElement.scrollTop = 0
+      document.body.scrollTop = 0
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      document.documentElement.style.overflow = ''
       document.body.style.overflow = ''
       setPhase('done')
       onComplete()

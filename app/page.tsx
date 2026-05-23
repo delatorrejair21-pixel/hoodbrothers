@@ -734,7 +734,10 @@ export default function Home() {
 
   return (
     <>
-      <LogoIntro onComplete={() => setIntroComplete(true)} />
+      <LogoIntro onComplete={() => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        setIntroComplete(true);
+      }} />
 
       {/* Page content fades in once intro is dismissed */}
       <div
