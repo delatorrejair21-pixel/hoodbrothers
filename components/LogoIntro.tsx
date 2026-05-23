@@ -43,6 +43,10 @@ export default function LogoIntro({ onComplete }: LogoIntroProps) {
     if (phase !== 'waiting') return
     setPhase('exiting')
 
+    // Lock scroll + snap back to top so page starts at the hero
+    document.body.style.overflow = 'hidden'
+    window.scrollTo({ top: 0, behavior: 'instant' })
+
     // Compute where the nav logo is so we can morph toward it
     const navLogo = document.querySelector('[data-navbar-logo]') as HTMLElement | null
     if (navLogo && logoRef.current) {
@@ -55,7 +59,11 @@ export default function LogoIntro({ onComplete }: LogoIntroProps) {
       })
     }
 
-    setTimeout(() => { setPhase('done'); onComplete() }, EXIT_DURATION)
+    setTimeout(() => {
+      document.body.style.overflow = ''
+      setPhase('done')
+      onComplete()
+    }, EXIT_DURATION)
   }, [phase, onComplete])
 
   // First scroll → trigger exit

@@ -156,7 +156,7 @@ function Hero() {
         background: "radial-gradient(ellipse 55% 45% at 50% 55%, rgba(255,255,255,0.07) 0%, transparent 70%)"
       }} />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 text-center pt-24 md:pt-0">
         <h1
           className="animate-fade-up-d1 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tight text-white mb-6"
           style={{ fontFamily: "var(--font-barlow)" }}
