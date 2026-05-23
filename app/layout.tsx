@@ -34,7 +34,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${barlow.variable} scroll-smooth`}>
+    <html lang="en" className={`${geist.variable} ${barlow.variable}`}>
       <body className="min-h-screen bg-[#0D0D0D] text-white antialiased" suppressHydrationWarning>
         {children}
       </body>

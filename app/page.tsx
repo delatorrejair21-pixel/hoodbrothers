@@ -732,36 +732,44 @@ function Footer() {
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
 
+  // Disable browser scroll restoration so it can't jump us down the page
+  useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+  }, []);
+
   return (
     <>
       <LogoIntro onComplete={() => {
+        // Ensure we're at the very top before mounting the page
         window.scrollTo({ top: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
         setIntroComplete(true);
+        // Re-enable smooth scrolling now that the intro is done
+        document.documentElement.style.scrollBehavior = 'smooth';
       }} />
 
-      {/* Page content fades in once intro is dismissed */}
-      <div
-        style={{
-          opacity: introComplete ? 1 : 0,
-          visibility: introComplete ? "visible" : "hidden",
-          transition: introComplete ? "opacity 0.6s ease" : "none",
-        }}
-      >
-        <ScrollProgressBar />
-        <Navbar />
-        <main>
-          <Hero />
-          <TrustBar />
-          <Services />
-          <WhyUs />
-          <Process />
-          <Gallery />
-          <Industries />
-          <CtaBanner />
-          <ContactForm />
-        </main>
-        <Footer />
-      </div>
+      {/* Page content only mounts after intro — never in the DOM during the animation */}
+      {introComplete && (
+        <div className="animate-page-in">
+          <ScrollProgressBar />
+          <Navbar />
+          <main>
+            <Hero />
+            <TrustBar />
+            <Services />
+            <WhyUs />
+            <Process />
+            <Gallery />
+            <Industries />
+            <CtaBanner />
+            <ContactForm />
+          </main>
+          <Footer />
+        </div>
+      )}
     </>
   );
 }
