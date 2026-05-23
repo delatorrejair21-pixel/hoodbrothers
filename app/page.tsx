@@ -732,17 +732,16 @@ function Footer() {
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
 
-  // After page content mounts (introComplete = true):
-  // overflow is STILL locked from LogoIntro — content is in the DOM but
-  // the browser physically cannot have scrolled anywhere.
-  // We reset scroll then release the lock. Order matters: release LAST.
   useEffect(() => {
     if (!introComplete) return;
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Clamp is gone — release html/body lock too, then hard-zero scroll.
+    // At this point the wrapper has height:auto so the page can scroll,
+    // but we've never moved from 0 because the clamp prevented it.
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     document.documentElement.style.scrollBehavior = 'smooth';
   }, [introComplete]);
 
@@ -750,25 +749,37 @@ export default function Home() {
     <>
       <LogoIntro onComplete={() => setIntroComplete(true)} />
 
-      {/* Page content only mounts after intro — never in the DOM during the animation */}
-      {introComplete && (
-        <div className="animate-page-in">
-          <ScrollProgressBar />
-          <Navbar />
-          <main>
-            <Hero />
-            <TrustBar />
-            <Services />
-            <WhyUs />
-            <Process />
-            <Gallery />
-            <Industries />
-            <CtaBanner />
-            <ContactForm />
-          </main>
-          <Footer />
-        </div>
-      )}
+      {/*
+        Content is ALWAYS in the DOM (so the navbar logo is findable for the
+        morph animation). During the intro the wrapper is clamped to 100vh with
+        overflow:hidden — the document's scrollable height is 0, so the browser
+        has nothing to restore or jump to, no matter what.
+        When introComplete flips, we drop the clamp and the page fades in.
+      */}
+      <div
+        style={introComplete ? undefined : {
+          height: '100vh',
+          overflow: 'hidden',
+          visibility: 'hidden',
+          pointerEvents: 'none',
+        }}
+        className={introComplete ? 'animate-page-in' : ''}
+      >
+        <ScrollProgressBar />
+        <Navbar />
+        <main>
+          <Hero />
+          <TrustBar />
+          <Services />
+          <WhyUs />
+          <Process />
+          <Gallery />
+          <Industries />
+          <CtaBanner />
+          <ContactForm />
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }
