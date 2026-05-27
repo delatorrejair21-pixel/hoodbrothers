@@ -29,7 +29,7 @@ export default function LogoIntro({ onComplete }: { onComplete: () => void }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#0D0D0D]${
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-white${
         leaving ? ' intro-fade-out' : ''
       }`}
     >
@@ -38,7 +38,7 @@ export default function LogoIntro({ onComplete }: { onComplete: () => void }) {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 65% 55% at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%)',
+            'radial-gradient(ellipse 65% 55% at 50% 50%, rgba(0,0,0,0.03) 0%, transparent 70%)',
         }}
       />
 
@@ -48,8 +48,8 @@ export default function LogoIntro({ onComplete }: { onComplete: () => void }) {
         style={{
           animationDelay: '0.2s',
           background:
-            'linear-gradient(90deg, transparent, rgba(255,255,255,0.8), #fff, rgba(255,255,255,0.8), transparent)',
-          boxShadow: '0 0 10px rgba(255,255,255,0.4)',
+            'linear-gradient(90deg, transparent, rgba(0,0,0,0.4), #0D0D0D, rgba(0,0,0,0.4), transparent)',
+          boxShadow: '0 0 8px rgba(0,0,0,0.15)',
         }}
       />
 
@@ -60,13 +60,13 @@ export default function LogoIntro({ onComplete }: { onComplete: () => void }) {
           className="intro-line-grow h-px w-28"
           style={{
             animationDelay: '0.05s',
-            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
+            background: 'linear-gradient(90deg, transparent, rgba(0,0,0,0.3), transparent)',
           }}
         />
 
         {/* Eyebrow */}
         <p
-          className="intro-slide-up text-white/40 text-[11px] tracking-[0.45em] uppercase font-semibold"
+          className="intro-slide-up text-[#0D0D0D]/45 text-[11px] tracking-[0.45em] uppercase font-semibold"
           style={{ animationDelay: '0.2s' }}
         >
           Commercial Kitchen Specialists
@@ -74,7 +74,7 @@ export default function LogoIntro({ onComplete }: { onComplete: () => void }) {
 
         {/* Brand name */}
         <h1
-          className="intro-text-reveal text-white font-black uppercase tracking-tight"
+          className="intro-text-reveal text-[#0D0D0D] font-black uppercase tracking-tight"
           style={{
             animationDelay: '0.38s',
             fontFamily: 'var(--font-barlow)',
@@ -90,14 +90,14 @@ export default function LogoIntro({ onComplete }: { onComplete: () => void }) {
           className="intro-line-grow h-px w-28"
           style={{
             animationDelay: '0.75s',
-            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
+            background: 'linear-gradient(90deg, transparent, rgba(0,0,0,0.3), transparent)',
           }}
         />
 
         {/* Progress bar */}
-        <div className="mt-2 w-32 h-px bg-white/10 rounded-full overflow-hidden">
+        <div className="mt-2 w-32 h-px bg-[#0D0D0D]/10 rounded-full overflow-hidden">
           <div
-            className="intro-progress-fill h-full bg-white/55 rounded-full"
+            className="intro-progress-fill h-full bg-[#0D0D0D]/40 rounded-full"
             style={{ animationDuration: `${PLAY_MS}ms` }}
           />
         </div>

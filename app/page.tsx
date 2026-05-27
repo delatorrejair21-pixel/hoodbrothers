@@ -24,7 +24,7 @@ function ScrollProgressBar() {
   return (
     <div className="fixed top-0 left-0 right-0 z-[60] h-[2px] bg-transparent pointer-events-none">
       <div
-        className="h-full bg-white transition-none"
+        className="h-full bg-[#0D0D0D] transition-none"
         style={{ width: `${progress}%` }}
       />
     </div>
@@ -54,7 +54,7 @@ function Navbar() {
   return (
     <header
       className={`fixed top-[2px] left-0 right-0 z-50 transition-all duration-400 nav-blur ${
-        scrolled ? "bg-[#0D0D0D]/90 border-b border-[#2E2E2E]" : "bg-transparent"
+        scrolled ? "bg-white/90 border-b border-[#E0E0E0]" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between py-4">
@@ -65,7 +65,7 @@ function Navbar() {
             width={120}
             height={60}
             style={{ width: 120, height: "auto" }}
-            className="invert brightness-200"
+            className=""
             data-navbar-logo
           />
         </a>
@@ -75,14 +75,14 @@ function Navbar() {
             <a
               key={l.label}
               href={l.href}
-              className="text-white/60 hover:text-white text-sm font-medium tracking-wide transition-colors duration-200"
+              className="text-[#0D0D0D]/60 hover:text-[#0D0D0D] text-sm font-medium tracking-wide transition-colors duration-200"
             >
               {l.label}
             </a>
           ))}
           <a
             href="#contact"
-            className="ml-2 bg-white hover:bg-white/90 text-[#0D0D0D] text-sm font-black tracking-wider uppercase px-5 py-2.5 rounded-full transition-all duration-200 shadow-lg shadow-black/30 hover:-translate-y-0.5"
+            className="ml-2 bg-[#0D0D0D] hover:bg-[#1A1A1A] text-white text-sm font-black tracking-wider uppercase px-5 py-2.5 rounded-full transition-all duration-200 shadow-lg shadow-black/30 hover:-translate-y-0.5"
             style={{ fontFamily: "var(--font-barlow)" }}
           >
             Free Quote
@@ -90,34 +90,34 @@ function Navbar() {
         </nav>
 
         <button
-          className="lg:hidden text-white p-2"
+          className="lg:hidden text-[#0D0D0D] p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
           <div className="w-6 flex flex-col gap-1.5">
-            <span className={`block h-0.5 bg-white transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-            <span className={`block h-0.5 bg-white transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-0.5 bg-white transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            <span className={`block h-0.5 bg-[#0D0D0D] transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`block h-0.5 bg-[#0D0D0D] transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block h-0.5 bg-[#0D0D0D] transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
           </div>
         </button>
       </div>
 
       <div
         className={`lg:hidden transition-all duration-300 overflow-hidden ${
-          menuOpen ? "max-h-96 border-t border-[#2E2E2E]" : "max-h-0"
-        } bg-[#141414]`}
+          menuOpen ? "max-h-96 border-t border-[#E0E0E0]" : "max-h-0"
+        } bg-[#F5F5F5]`}
       >
         <div className="px-6 py-6 flex flex-col gap-5">
           {navLinks.map((l) => (
             <a key={l.label} href={l.href} onClick={() => setMenuOpen(false)}
-              className="text-white/70 hover:text-white text-base font-medium tracking-wide">
+              className="text-[#0D0D0D]/70 hover:text-[#0D0D0D] text-base font-medium tracking-wide">
               {l.label}
             </a>
           ))}
           <a
             href="#contact"
             onClick={() => setMenuOpen(false)}
-            className="bg-white hover:bg-white/90 text-[#0D0D0D] text-sm font-black tracking-wider uppercase px-5 py-3 rounded-full text-center"
+            className="bg-[#0D0D0D] hover:bg-[#1A1A1A] text-white text-sm font-black tracking-wider uppercase px-5 py-3 rounded-full text-center"
             style={{ fontFamily: "var(--font-barlow)" }}
           >
             Get a Free Quote
@@ -151,14 +151,14 @@ function Hero() {
         className="absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat will-change-transform"
         style={{ backgroundImage: `url('/hoodbrothers.png')` }}
       />
-      <div className="absolute inset-0 bg-[#0D0D0D]/85" />
+      <div className="absolute inset-0 bg-white/55" />
       <div className="absolute inset-0 animate-white-pulse" style={{
-        background: "radial-gradient(ellipse 55% 45% at 50% 55%, rgba(255,255,255,0.07) 0%, transparent 70%)"
+        background: "radial-gradient(ellipse 55% 45% at 50% 55%, rgba(0,0,0,0.06) 0%, transparent 70%)"
       }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 text-center pt-24 md:pt-0">
         <h1
-          className="animate-fade-up-d1 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tight text-white mb-6"
+          className="animate-fade-up-d1 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tight text-[#0D0D0D] mb-6"
           style={{ fontFamily: "var(--font-barlow)" }}
         >
           Professional Kitchen
@@ -168,7 +168,7 @@ function Hero() {
           You Can Trust
         </h1>
 
-        <p className="animate-fade-up-d2 text-white/55 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="animate-fade-up-d2 text-[#0D0D0D]/55 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
           Helping restaurants and commercial kitchens stay clean, safe, and inspection-ready.
           Heavy grease removal done right — every time.
         </p>
@@ -176,14 +176,14 @@ function Hero() {
         <div className="animate-fade-up-d3 flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="#contact"
-            className="bg-white hover:bg-white/90 text-[#0D0D0D] font-black tracking-wider uppercase px-8 py-4 rounded-full text-sm transition-all duration-200 shadow-xl shadow-black/40 hover:-translate-y-0.5"
+            className="bg-[#0D0D0D] hover:bg-[#1A1A1A] text-white font-black tracking-wider uppercase px-8 py-4 rounded-full text-sm transition-all duration-200 shadow-xl shadow-black/40 hover:-translate-y-0.5"
             style={{ fontFamily: "var(--font-barlow)" }}
           >
             Get a Free Quote
           </a>
           <a
             href="tel:+10000000000"
-            className="bg-white/8 hover:bg-white/15 border border-white/20 hover:border-white/35 text-white font-bold tracking-wider uppercase px-8 py-4 rounded-full text-sm transition-all duration-200 backdrop-blur-sm"
+            className="bg-[#0D0D0D]/8 hover:bg-[#0D0D0D]/15 border border-[#0D0D0D]/20 hover:border-[#0D0D0D]/35 text-[#0D0D0D] font-bold tracking-wider uppercase px-8 py-4 rounded-full text-sm transition-all duration-200 backdrop-blur-sm"
           >
             Call Now
           </a>
@@ -217,14 +217,14 @@ function TrustBar() {
   ];
 
   return (
-    <section id="trust" className="bg-[#141414] border-y border-[#2E2E2E] py-6">
+    <section id="trust" className="bg-[#F5F5F5] border-y border-[#E0E0E0] py-6">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-0 lg:divide-x lg:divide-[#2E2E2E]">
           {items.map((item, i) => (
             <ScrollReveal key={item.label} variant="fade" delay={i as 0|1|2|3}>
               <div className="flex items-center gap-3 lg:px-8 py-2">
-                <span className="text-white/60 shrink-0">{item.icon}</span>
-                <span className="text-white/75 text-sm font-medium leading-tight">{item.label}</span>
+                <span className="text-[#0D0D0D]/60 shrink-0">{item.icon}</span>
+                <span className="text-[#0D0D0D]/75 text-sm font-medium leading-tight">{item.label}</span>
               </div>
             </ScrollReveal>
           ))}
@@ -271,14 +271,14 @@ function Services() {
   ];
 
   return (
-    <section id="services" className="py-24 bg-[#0D0D0D]">
+    <section id="services" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <ScrollReveal variant="up" className="text-center mb-16">
-          <span className="inline-block text-white/45 text-xs font-bold tracking-widest uppercase mb-4">What We Do</span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-white leading-tight" style={{ fontFamily: "var(--font-barlow)" }}>
+          <span className="inline-block text-[#0D0D0D]/45 text-xs font-bold tracking-widest uppercase mb-4">What We Do</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-[#0D0D0D] leading-tight" style={{ fontFamily: "var(--font-barlow)" }}>
             Our Cleaning <span className="text-white-gradient">Services</span>
           </h2>
-          <p className="mt-4 text-white/50 text-lg max-w-2xl mx-auto">
+          <p className="mt-4 text-[#0D0D0D]/50 text-lg max-w-2xl mx-auto">
             From hood to exhaust fan — we handle the complete cleaning system so you can focus on your kitchen.
           </p>
         </ScrollReveal>
@@ -286,15 +286,15 @@ function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((svc, i) => (
             <ScrollReveal key={svc.title} variant="scale" delay={(i % 3 + 1) as 1|2|3}>
-              <div className="hood-card bg-[#141414] rounded-2xl p-8 h-full flex flex-col gap-5">
-                <div className="w-14 h-14 rounded-xl bg-white/5 border border-white/12 flex items-center justify-center text-white/75">
+              <div className="hood-card bg-[#F5F5F5] rounded-2xl p-8 h-full flex flex-col gap-5">
+                <div className="w-14 h-14 rounded-xl bg-[#0D0D0D]/5 border border-[#0D0D0D]/12 flex items-center justify-center text-[#0D0D0D]/75">
                   {svc.icon}
                 </div>
                 <div>
-                  <h3 className="text-white font-bold text-xl mb-2 uppercase tracking-wide" style={{ fontFamily: "var(--font-barlow)" }}>
+                  <h3 className="text-[#0D0D0D] font-bold text-xl mb-2 uppercase tracking-wide" style={{ fontFamily: "var(--font-barlow)" }}>
                     {svc.title}
                   </h3>
-                  <p className="text-white/50 text-sm leading-relaxed">{svc.desc}</p>
+                  <p className="text-[#0D0D0D]/50 text-sm leading-relaxed">{svc.desc}</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -318,20 +318,20 @@ function WhyUs() {
   ];
 
   return (
-    <section id="why-us" className="py-24 bg-[#141414]">
+    <section id="why-us" className="py-24 bg-[#F5F5F5]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <ScrollReveal variant="left">
-            <span className="inline-block text-white/45 text-xs font-bold tracking-widest uppercase mb-4">Why Choose Us</span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-white leading-tight mb-6" style={{ fontFamily: "var(--font-barlow)" }}>
+            <span className="inline-block text-[#0D0D0D]/45 text-xs font-bold tracking-widest uppercase mb-4">Why Choose Us</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-[#0D0D0D] leading-tight mb-6" style={{ fontFamily: "var(--font-barlow)" }}>
               Built for the<br /><span className="text-white-gradient">Commercial Kitchen</span>
             </h2>
-            <p className="text-white/55 text-lg leading-relaxed mb-10">
+            <p className="text-[#0D0D0D]/55 text-lg leading-relaxed mb-10">
               The Hood Brothers was founded by professionals who understand what restaurants and commercial kitchens need — fast, thorough, and reliable service that keeps you compliant and your staff safe.
             </p>
             <a
               href="#contact"
-              className="inline-flex bg-white hover:bg-white/90 text-[#0D0D0D] font-black tracking-wider uppercase px-7 py-3.5 rounded-full text-sm transition-all duration-200 shadow-lg shadow-black/30 hover:-translate-y-0.5"
+              className="inline-flex bg-[#0D0D0D] hover:bg-[#1A1A1A] text-white font-black tracking-wider uppercase px-7 py-3.5 rounded-full text-sm transition-all duration-200 shadow-lg shadow-black/30 hover:-translate-y-0.5"
               style={{ fontFamily: "var(--font-barlow)" }}
             >
               Get a Free Quote Today
@@ -341,12 +341,12 @@ function WhyUs() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {reasons.map((r, i) => (
               <ScrollReveal key={r.title} variant="right" delay={(i % 3 + 1) as 1|2|3}>
-                <div className="hood-card bg-[#1A1A1A] rounded-2xl p-6 h-full">
+                <div className="hood-card bg-[#EBEBEB] rounded-2xl p-6 h-full">
                   <span className="text-2xl mb-3 block">{r.icon}</span>
-                  <h3 className="text-white font-bold text-base uppercase tracking-wide mb-2" style={{ fontFamily: "var(--font-barlow)" }}>
+                  <h3 className="text-[#0D0D0D] font-bold text-base uppercase tracking-wide mb-2" style={{ fontFamily: "var(--font-barlow)" }}>
                     {r.title}
                   </h3>
-                  <p className="text-white/45 text-sm leading-relaxed">{r.desc}</p>
+                  <p className="text-[#0D0D0D]/45 text-sm leading-relaxed">{r.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -379,11 +379,11 @@ function Process() {
   ];
 
   return (
-    <section id="process" className="py-24 bg-[#0D0D0D]">
+    <section id="process" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <ScrollReveal variant="up" className="text-center mb-16">
-          <span className="inline-block text-white/45 text-xs font-bold tracking-widest uppercase mb-4">How It Works</span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-white leading-tight" style={{ fontFamily: "var(--font-barlow)" }}>
+          <span className="inline-block text-[#0D0D0D]/45 text-xs font-bold tracking-widest uppercase mb-4">How It Works</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-[#0D0D0D] leading-tight" style={{ fontFamily: "var(--font-barlow)" }}>
             Simple 3-Step <span className="text-white-gradient">Process</span>
           </h2>
         </ScrollReveal>
@@ -394,15 +394,15 @@ function Process() {
             {steps.map((step, i) => (
               <ScrollReveal key={step.number} variant="up" delay={(i + 1) as 1|2|3} threshold={0.15}>
                 <div className="flex flex-col items-center text-center">
-                  <div className="w-24 h-24 rounded-full bg-white/5 border border-white/20 flex items-center justify-center mb-6 relative z-10">
-                    <span className="text-white text-3xl font-black" style={{ fontFamily: "var(--font-barlow)" }}>
+                  <div className="w-24 h-24 rounded-full bg-[#0D0D0D]/5 border border-[#0D0D0D]/20 flex items-center justify-center mb-6 relative z-10">
+                    <span className="text-[#0D0D0D] text-3xl font-black" style={{ fontFamily: "var(--font-barlow)" }}>
                       {step.number}
                     </span>
                   </div>
-                  <h3 className="text-white font-black text-2xl uppercase mb-4" style={{ fontFamily: "var(--font-barlow)" }}>
+                  <h3 className="text-[#0D0D0D] font-black text-2xl uppercase mb-4" style={{ fontFamily: "var(--font-barlow)" }}>
                     {step.title}
                   </h3>
-                  <p className="text-white/50 leading-relaxed max-w-sm">{step.desc}</p>
+                  <p className="text-[#0D0D0D]/50 leading-relaxed max-w-sm">{step.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -417,14 +417,14 @@ function Process() {
 
 function Gallery() {
   return (
-    <section id="gallery" className="py-24 bg-[#141414]">
+    <section id="gallery" className="py-24 bg-[#F5F5F5]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <ScrollReveal variant="up" className="text-center mb-16">
-          <span className="inline-block text-white/45 text-xs font-bold tracking-widest uppercase mb-4">Our Results</span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-white leading-tight" style={{ fontFamily: "var(--font-barlow)" }}>
+          <span className="inline-block text-[#0D0D0D]/45 text-xs font-bold tracking-widest uppercase mb-4">Our Results</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-[#0D0D0D] leading-tight" style={{ fontFamily: "var(--font-barlow)" }}>
             Before & <span className="text-white-gradient">After</span>
           </h2>
-          <p className="mt-4 text-white/50 text-lg max-w-xl mx-auto">
+          <p className="mt-4 text-[#0D0D0D]/50 text-lg max-w-xl mx-auto">
             See the difference a professional hood cleaning makes. Drag the slider to compare.
           </p>
         </ScrollReveal>
@@ -437,7 +437,7 @@ function Gallery() {
               beforeAlt="Hood canopy before cleaning — heavy grease buildup"
               afterAlt="Hood canopy after cleaning — spotless stainless steel"
             />
-            <p className="text-white/30 text-sm mt-3 text-center">Hood Canopy — Before &amp; After</p>
+            <p className="text-[#0D0D0D]/30 text-sm mt-3 text-center">Hood Canopy — Before &amp; After</p>
           </ScrollReveal>
         </div>
       </div>
@@ -459,11 +459,11 @@ function Industries() {
   ];
 
   return (
-    <section id="industries" className="py-24 bg-[#0D0D0D]">
+    <section id="industries" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <ScrollReveal variant="up" className="text-center mb-16">
-          <span className="inline-block text-white/45 text-xs font-bold tracking-widest uppercase mb-4">Industries We Serve</span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-white leading-tight" style={{ fontFamily: "var(--font-barlow)" }}>
+          <span className="inline-block text-[#0D0D0D]/45 text-xs font-bold tracking-widest uppercase mb-4">Industries We Serve</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-[#0D0D0D] leading-tight" style={{ fontFamily: "var(--font-barlow)" }}>
             We Serve <span className="text-white-gradient">All Commercial</span><br />Kitchens
           </h2>
         </ScrollReveal>
@@ -471,9 +471,9 @@ function Industries() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4">
           {industries.map((ind, i) => (
             <ScrollReveal key={ind.label} variant="up" delay={((i % 4) + 1) as 1|2|3|4}>
-              <div className="hood-card bg-[#141414] rounded-2xl p-6 flex flex-col items-center gap-3 text-center">
+              <div className="hood-card bg-[#F5F5F5] rounded-2xl p-6 flex flex-col items-center gap-3 text-center">
                 <span className="text-4xl">{ind.icon}</span>
-                <span className="text-white/75 text-sm font-bold uppercase tracking-wide" style={{ fontFamily: "var(--font-barlow)" }}>
+                <span className="text-[#0D0D0D]/75 text-sm font-bold uppercase tracking-wide" style={{ fontFamily: "var(--font-barlow)" }}>
                   {ind.label}
                 </span>
               </div>
@@ -489,7 +489,7 @@ function Industries() {
 
 function CtaBanner() {
   return (
-    <section className="py-24 bg-[#141414] border-y border-[#2E2E2E] relative overflow-hidden">
+    <section className="py-24 bg-[#F5F5F5] border-y border-[#E0E0E0] relative overflow-hidden">
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "28px 28px" }}
@@ -500,23 +500,23 @@ function CtaBanner() {
       />
       <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-10 text-center">
         <ScrollReveal variant="scale">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-white leading-tight mb-6" style={{ fontFamily: "var(--font-barlow)" }}>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase text-[#0D0D0D] leading-tight mb-6" style={{ fontFamily: "var(--font-barlow)" }}>
             Need Your Kitchen Hood Cleaned?
           </h2>
-          <p className="text-white/55 text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[#0D0D0D]/55 text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
             Contact The Hood Brothers today for a free quote and reliable commercial hood cleaning service.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="#contact"
-              className="bg-white hover:bg-white/90 text-[#0D0D0D] font-black tracking-wider uppercase px-8 py-4 rounded-full text-sm transition-all duration-200 shadow-xl shadow-black/40 hover:-translate-y-0.5"
+              className="bg-[#0D0D0D] hover:bg-[#1A1A1A] text-white font-black tracking-wider uppercase px-8 py-4 rounded-full text-sm transition-all duration-200 shadow-xl shadow-black/40 hover:-translate-y-0.5"
               style={{ fontFamily: "var(--font-barlow)" }}
             >
               Get a Free Quote
             </a>
             <a
               href="tel:+10000000000"
-              className="bg-transparent border border-white/30 hover:border-white/60 hover:bg-white/8 text-white font-black tracking-wider uppercase px-8 py-4 rounded-full text-sm transition-all duration-200"
+              className="bg-transparent border border-[#0D0D0D]/30 hover:border-[#0D0D0D]/60 hover:bg-[#0D0D0D]/8 text-[#0D0D0D] font-black tracking-wider uppercase px-8 py-4 rounded-full text-sm transition-all duration-200"
               style={{ fontFamily: "var(--font-barlow)" }}
             >
               Call Now
@@ -545,46 +545,46 @@ function ContactForm() {
     {
       icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,
       label: "Phone",
-      content: <a href="tel:+10000000000" className="text-white font-semibold hover:text-white/70 transition-colors">(000) 000-0000</a>,
+      content: <a href="tel:+10000000000" className="text-[#0D0D0D] font-semibold hover:text-[#0D0D0D]/70 transition-colors">(000) 000-0000</a>,
     },
     {
       icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
       label: "Email",
-      content: <a href="mailto:info@hoodbrothers.com" className="text-white font-semibold hover:text-white/70 transition-colors">info@hoodbrothers.com</a>,
+      content: <a href="mailto:info@hoodbrothers.com" className="text-[#0D0D0D] font-semibold hover:text-[#0D0D0D]/70 transition-colors">info@hoodbrothers.com</a>,
     },
     {
       icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>,
       label: "Service Area",
-      content: <p className="text-white font-semibold">Metro Area & Surrounding Counties</p>,
+      content: <p className="text-[#0D0D0D] font-semibold">Metro Area & Surrounding Counties</p>,
     },
     {
       icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
       label: "Business Hours",
-      content: <><p className="text-white font-semibold">Mon–Fri: 7am–6pm</p><p className="text-white/50 text-sm">Sat–Sun: By Appointment</p></>,
+      content: <><p className="text-[#0D0D0D] font-semibold">Mon–Fri: 7am–6pm</p><p className="text-[#0D0D0D]/50 text-sm">Sat–Sun: By Appointment</p></>,
     },
   ];
 
   return (
-    <section id="contact" className="py-24 bg-[#0D0D0D]">
+    <section id="contact" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           <ScrollReveal variant="left">
-            <span className="inline-block text-white/45 text-xs font-bold tracking-widest uppercase mb-4">Get in Touch</span>
-            <h2 className="text-4xl md:text-5xl font-black uppercase text-white leading-tight mb-6" style={{ fontFamily: "var(--font-barlow)" }}>
+            <span className="inline-block text-[#0D0D0D]/45 text-xs font-bold tracking-widest uppercase mb-4">Get in Touch</span>
+            <h2 className="text-4xl md:text-5xl font-black uppercase text-[#0D0D0D] leading-tight mb-6" style={{ fontFamily: "var(--font-barlow)" }}>
               Request Your<br /><span className="text-white-gradient">Free Quote</span>
             </h2>
-            <p className="text-white/55 text-lg leading-relaxed mb-10">
+            <p className="text-[#0D0D0D]/55 text-lg leading-relaxed mb-10">
               Fill out the form and we'll get back to you within 24 hours with a free, no-obligation quote for your kitchen.
             </p>
             <div className="flex flex-col gap-6">
               {infoItems.map((item, i) => (
                 <ScrollReveal key={item.label} variant="left" delay={(i + 1) as 1|2|3|4}>
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/12 flex items-center justify-center text-white/55 shrink-0 mt-0.5">
+                    <div className="w-10 h-10 rounded-xl bg-[#0D0D0D]/5 border border-[#0D0D0D]/12 flex items-center justify-center text-[#0D0D0D]/55 shrink-0 mt-0.5">
                       {item.icon}
                     </div>
                     <div>
-                      <p className="text-white/35 text-xs uppercase tracking-widest mb-1">{item.label}</p>
+                      <p className="text-[#0D0D0D]/35 text-xs uppercase tracking-widest mb-1">{item.label}</p>
                       {item.content}
                     </div>
                   </div>
@@ -594,53 +594,53 @@ function ContactForm() {
           </ScrollReveal>
 
           <ScrollReveal variant="right" delay={1}>
-            <form className="bg-[#141414] border border-[#2E2E2E] rounded-2xl p-8 flex flex-col gap-5">
+            <form className="bg-[#F5F5F5] border border-[#E0E0E0] rounded-2xl p-8 flex flex-col gap-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-2">
-                  <label className="text-white/45 text-xs uppercase tracking-widest font-semibold">Your Name <span className="text-white/60">*</span></label>
+                  <label className="text-[#0D0D0D]/45 text-xs uppercase tracking-widest font-semibold">Your Name <span className="text-[#0D0D0D]/60">*</span></label>
                   <input type="text" placeholder="John Smith"
-                    className="bg-[#1A1A1A] border border-[#2E2E2E] hover:border-[#444] focus:border-white/35 rounded-xl px-4 py-3 text-white placeholder-white/20 text-sm outline-none transition-colors duration-200" />
+                    className="bg-[#EBEBEB] border border-[#E0E0E0] hover:border-[#AAAAAA] focus:border-[#0D0D0D]/35 rounded-xl px-4 py-3 text-[#0D0D0D] placeholder-[#0D0D0D]/20 text-sm outline-none transition-colors duration-200" />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-white/45 text-xs uppercase tracking-widest font-semibold">Business Name <span className="text-white/60">*</span></label>
+                  <label className="text-[#0D0D0D]/45 text-xs uppercase tracking-widest font-semibold">Business Name <span className="text-[#0D0D0D]/60">*</span></label>
                   <input type="text" placeholder="Restaurant or Business"
-                    className="bg-[#1A1A1A] border border-[#2E2E2E] hover:border-[#444] focus:border-white/35 rounded-xl px-4 py-3 text-white placeholder-white/20 text-sm outline-none transition-colors duration-200" />
+                    className="bg-[#EBEBEB] border border-[#E0E0E0] hover:border-[#AAAAAA] focus:border-[#0D0D0D]/35 rounded-xl px-4 py-3 text-[#0D0D0D] placeholder-[#0D0D0D]/20 text-sm outline-none transition-colors duration-200" />
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-2">
-                  <label className="text-white/45 text-xs uppercase tracking-widest font-semibold">Phone Number <span className="text-white/60">*</span></label>
+                  <label className="text-[#0D0D0D]/45 text-xs uppercase tracking-widest font-semibold">Phone Number <span className="text-[#0D0D0D]/60">*</span></label>
                   <input type="tel" placeholder="(000) 000-0000"
-                    className="bg-[#1A1A1A] border border-[#2E2E2E] hover:border-[#444] focus:border-white/35 rounded-xl px-4 py-3 text-white placeholder-white/20 text-sm outline-none transition-colors duration-200" />
+                    className="bg-[#EBEBEB] border border-[#E0E0E0] hover:border-[#AAAAAA] focus:border-[#0D0D0D]/35 rounded-xl px-4 py-3 text-[#0D0D0D] placeholder-[#0D0D0D]/20 text-sm outline-none transition-colors duration-200" />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-white/45 text-xs uppercase tracking-widest font-semibold">Email Address</label>
+                  <label className="text-[#0D0D0D]/45 text-xs uppercase tracking-widest font-semibold">Email Address</label>
                   <input type="email" placeholder="you@business.com"
-                    className="bg-[#1A1A1A] border border-[#2E2E2E] hover:border-[#444] focus:border-white/35 rounded-xl px-4 py-3 text-white placeholder-white/20 text-sm outline-none transition-colors duration-200" />
+                    className="bg-[#EBEBEB] border border-[#E0E0E0] hover:border-[#AAAAAA] focus:border-[#0D0D0D]/35 rounded-xl px-4 py-3 text-[#0D0D0D] placeholder-[#0D0D0D]/20 text-sm outline-none transition-colors duration-200" />
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-white/45 text-xs uppercase tracking-widest font-semibold">Service Needed</label>
-                <select className="bg-[#1A1A1A] border border-[#2E2E2E] hover:border-[#444] focus:border-white/35 rounded-xl px-4 py-3 text-white/60 text-sm outline-none transition-colors duration-200 appearance-none">
+                <label className="text-[#0D0D0D]/45 text-xs uppercase tracking-widest font-semibold">Service Needed</label>
+                <select className="bg-[#EBEBEB] border border-[#E0E0E0] hover:border-[#AAAAAA] focus:border-[#0D0D0D]/35 rounded-xl px-4 py-3 text-[#0D0D0D]/60 text-sm outline-none transition-colors duration-200 appearance-none">
                   <option value="">Select a service...</option>
                   {services.map((s) => (
-                    <option key={s} value={s} className="bg-[#1A1A1A]">{s}</option>
+                    <option key={s} value={s} className="bg-[#EBEBEB]">{s}</option>
                   ))}
                 </select>
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-white/45 text-xs uppercase tracking-widest font-semibold">Message / Details</label>
+                <label className="text-[#0D0D0D]/45 text-xs uppercase tracking-widest font-semibold">Message / Details</label>
                 <textarea rows={4} placeholder="Tell us about your kitchen setup, how often you need cleaning, or any other details..."
-                  className="bg-[#1A1A1A] border border-[#2E2E2E] hover:border-[#444] focus:border-white/35 rounded-xl px-4 py-3 text-white placeholder-white/20 text-sm outline-none transition-colors duration-200 resize-none" />
+                  className="bg-[#EBEBEB] border border-[#E0E0E0] hover:border-[#AAAAAA] focus:border-[#0D0D0D]/35 rounded-xl px-4 py-3 text-[#0D0D0D] placeholder-[#0D0D0D]/20 text-sm outline-none transition-colors duration-200 resize-none" />
               </div>
               <button
                 type="submit"
-                className="bg-white hover:bg-white/90 text-[#0D0D0D] font-black tracking-wider uppercase px-8 py-4 rounded-full text-sm transition-all duration-200 shadow-lg shadow-black/30 hover:-translate-y-0.5 mt-2"
+                className="bg-[#0D0D0D] hover:bg-[#1A1A1A] text-white font-black tracking-wider uppercase px-8 py-4 rounded-full text-sm transition-all duration-200 shadow-lg shadow-black/30 hover:-translate-y-0.5 mt-2"
                 style={{ fontFamily: "var(--font-barlow)" }}
               >
                 Request Free Quote
               </button>
-              <p className="text-white/25 text-xs text-center">We typically respond within 24 hours. No obligation required.</p>
+              <p className="text-[#0D0D0D]/25 text-xs text-center">We typically respond within 24 hours. No obligation required.</p>
             </form>
           </ScrollReveal>
         </div>
@@ -663,56 +663,56 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-[#0D0D0D] border-t border-[#2E2E2E] pt-16 pb-8">
+    <footer className="bg-white border-t border-[#E0E0E0] pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <Image src="/logo.png" alt="The Hood Brothers" width={48} height={48}
-                style={{ width: 48, height: "auto" }} className="invert brightness-200" />
+                style={{ width: 48, height: "auto" }} className="" />
               <div>
-                <p className="text-white font-black tracking-widest uppercase text-sm" style={{ fontFamily: "var(--font-barlow)" }}>The Hood Brothers</p>
-                <p className="text-white/40 text-[10px] tracking-widest uppercase font-semibold">Hood Cleaning Specialists</p>
+                <p className="text-[#0D0D0D] font-black tracking-widest uppercase text-sm" style={{ fontFamily: "var(--font-barlow)" }}>The Hood Brothers</p>
+                <p className="text-[#0D0D0D]/40 text-[10px] tracking-widest uppercase font-semibold">Hood Cleaning Specialists</p>
               </div>
             </div>
-            <p className="text-white/45 text-sm leading-relaxed max-w-sm mb-6">
+            <p className="text-[#0D0D0D]/45 text-sm leading-relaxed max-w-sm mb-6">
               Professional commercial kitchen hood cleaning services. Keeping restaurants, food trucks, and commercial kitchens clean, safe, and inspection-ready.
             </p>
             <div className="flex gap-3">
               <a href="tel:+10000000000"
-                className="bg-white hover:bg-white/90 text-[#0D0D0D] text-xs font-black tracking-wider uppercase px-4 py-2.5 rounded-full transition-all duration-200"
+                className="bg-[#0D0D0D] hover:bg-[#1A1A1A] text-white text-xs font-black tracking-wider uppercase px-4 py-2.5 rounded-full transition-all duration-200"
                 style={{ fontFamily: "var(--font-barlow)" }}>
                 Call Now
               </a>
               <a href="#contact"
-                className="bg-[#1A1A1A] border border-[#2E2E2E] hover:border-white/25 text-white/70 hover:text-white text-xs font-bold tracking-wider uppercase px-4 py-2.5 rounded-full transition-all duration-200">
+                className="bg-[#EBEBEB] border border-[#E0E0E0] hover:border-[#0D0D0D]/25 text-[#0D0D0D]/70 hover:text-[#0D0D0D] text-xs font-bold tracking-wider uppercase px-4 py-2.5 rounded-full transition-all duration-200">
                 Free Quote
               </a>
             </div>
           </div>
 
           <div>
-            <p className="text-white text-xs font-black tracking-widest uppercase mb-5" style={{ fontFamily: "var(--font-barlow)" }}>Quick Links</p>
+            <p className="text-[#0D0D0D] text-xs font-black tracking-widest uppercase mb-5" style={{ fontFamily: "var(--font-barlow)" }}>Quick Links</p>
             <ul className="flex flex-col gap-3">
               {links.map((l) => (
-                <li key={l.label}><a href={l.href} className="text-white/45 hover:text-white text-sm transition-colors duration-200">{l.label}</a></li>
+                <li key={l.label}><a href={l.href} className="text-[#0D0D0D]/45 hover:text-[#0D0D0D] text-sm transition-colors duration-200">{l.label}</a></li>
               ))}
             </ul>
           </div>
 
           <div>
-            <p className="text-white text-xs font-black tracking-widest uppercase mb-5" style={{ fontFamily: "var(--font-barlow)" }}>Services</p>
+            <p className="text-[#0D0D0D] text-xs font-black tracking-widest uppercase mb-5" style={{ fontFamily: "var(--font-barlow)" }}>Services</p>
             <ul className="flex flex-col gap-3">
               {services.map((s) => (
-                <li key={s}><a href="#services" className="text-white/45 hover:text-white text-sm transition-colors duration-200">{s}</a></li>
+                <li key={s}><a href="#services" className="text-[#0D0D0D]/45 hover:text-[#0D0D0D] text-sm transition-colors duration-200">{s}</a></li>
               ))}
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-[#2E2E2E] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/25 text-xs">© {new Date().getFullYear()} The Hood Brothers. All rights reserved.</p>
-          <p className="text-white/15 text-xs">Professional Commercial Kitchen Hood Cleaning</p>
+        <div className="border-t border-[#E0E0E0] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-[#0D0D0D]/25 text-xs">© {new Date().getFullYear()} The Hood Brothers. All rights reserved.</p>
+          <p className="text-[#0D0D0D]/15 text-xs">Professional Commercial Kitchen Hood Cleaning</p>
         </div>
       </div>
     </footer>

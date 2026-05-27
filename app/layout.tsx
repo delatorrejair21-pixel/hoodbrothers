@@ -35,7 +35,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable} ${barlow.variable}`}>
-      <body className="min-h-screen bg-[#0D0D0D] text-white antialiased" suppressHydrationWarning>
+      <body className="min-h-screen bg-white text-[#0D0D0D] antialiased" suppressHydrationWarning>
         {children}
       </body>
     </html>
